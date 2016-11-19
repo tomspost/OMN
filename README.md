@@ -5,11 +5,10 @@ Let's break out of the straightjacket of the dotcons and get web2.0 links connec
 # To install and run
 
 npm install OMN
+
 cd OMN
-node s
 
-
-erv.js
+node serv.js
 
 https://localhost:8080
 
