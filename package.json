@@ -1,0 +1,27 @@
+{
+  "name": "OMN",
+  "version": "1.0.0",
+  "description": "Open Media Network",
+  "main": "serv.js",
+  "dependencies": {
+    "feedparser": "^1.1.5",
+    "request": "^2.79.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomspost/OMN.git"
+  },
+  "keywords": [
+    "RSS"
+  ],
+  "author": "Tom Campbell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tomspost/OMN/issues"
+  },
+  "homepage": "https://github.com/tomspost/OMN#readme"
+}
