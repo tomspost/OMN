@@ -6,9 +6,7 @@ Let's break out of the straightjacket of the dotcons and get web2.0 links connec
 
 npm install OMN
 
-cd OMN
 
-node serv.js
 
 https://localhost:8080
 
@@ -16,8 +14,6 @@ https://localhost:8080
 #API
 
 GET /servers/
-
-PUT /servers/
 
 GET /rss/
 
@@ -27,16 +23,8 @@ GET /atom/
 
 GET /atom/tags
 
-GET /links/
-
-PUT /links/
-
-PUT /link/
-
 GET /tags/
 
-All put request require Oauth2 authentication
 
 
-# Dependencies
 
