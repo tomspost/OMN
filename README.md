@@ -28,21 +28,21 @@ GET /rss/tags/Tag1 - get all items that have tags1 & Tag2
 
 GET /tags/ - get a JSON list of tags in the currrent RSS items
 
-# Simple configuration (hopefully somone will write an API and web GUI for this..)
+# Simple ON server configuration (hopefully somone will write an API and web GUI for this..)
 
 Edit the config.js file and add feeds to either the trusted, untrusted, or banned JSON adding any defult tags that will be added to the feeds RSS items. Update the only_serve_tags JSON to enable this server to be a subject matter specialits
 
-All servers in the trusted and untrusted list will be polled every 10 mins fetching all RSS items. Each item will be added to the outgoing feed. Any duplication of items will update the existing item.
+All servers in the trusted list will be polled every 10 mins fetching all RSS items. Each item will be added to the outgoing feed. Any duplication of items will update the existing item.
 
-# How to added to any web site
-
-The defult CORS headers allow any site to access the API from most modern browser - All HTML items and scripts are removed from all feed items
+# How to add ONS feed list to any web site
 
 Use any opensorce RSS javascript plugin to your website ort blog. TODO add a list of tested plugins here
 
 Configure the RSS URL of the plugin to point to any ONS server adress. (all ONS servers list the addreses of all other ONS servers if you access them with a web browser)
 
 Edit the whoami JSON to let the world know who is running this ONM server 
+
+The defult CORS headers allow any site to access the API from most modern browser - All HTML items and scripts are removed from all feed items
 
 RSSURL: //anyonsservername.org/trustedrss/
 
@@ -74,4 +74,4 @@ If a server starts serving SPAMY RSS items it can be isolated from the ONM netwo
 
 A server that trusts other SPAMY OMN servers can be removed from the network in the same way thus remmoving all of its SPAMY OMN servers and feeds from the ONM network.
 
-So if you start seeing any SPAM in your feed then connect your site to a diffrent ONM server and contact the old ONM servers owner and ask them to sort it out
+So if you start seeing any SPAM in your feed then connect your site to a diffrent ONM server the old ONM server will see that you have moved your RSS feed  and  hopefully get thge message that they need to be more choosey about the feeds and ONM servers they trust
