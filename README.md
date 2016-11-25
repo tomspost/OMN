@@ -14,21 +14,19 @@ Add the sample serv.js file and run using node serv.js
 
 #API
 
-GET / - a test HTML page that shows all ONS items, tags, and servers
+GET / - a test HTML page that shows all ONS items, tags, and servers this uses the /everything/ API to navigae the ONM items, tags, and network
 
 GET /servers/ - gets a JSON list of servers. Every ONS server fetches lists of servers from other ONS servers every 10 mins removing any duplicates
 
-GET /everything/ - gets a JSON object with lists of servers, tags, and all RSS items including untrusted - used by the GET / to brows the ONS contnet, tags, and server network
+GET /everything/ - gets a JSON object with lists of servers, tags, and all RSS items including untrusted - used to brows the ONS content, tags, and server network
 
 GET /allrss/ - gets all RSS items as an RSS XML document including from untrusted feeds. 
 
-GET /trustedrss/ - gets all trusted RSS items from trusted feeds - USE TO GET THE ONS FEED!
-
-GET /rss/tags/Tag1 - get all items that have tags1 & Tag2 
+GET /rss/ - gets all trusted RSS items from trusted feeds - USE TO GET THE ONS FEED!
 
 GET /tags/ - get a JSON list of tags in the currrent RSS items
 
-# Simple ON server configuration (hopefully somone will write an API and web GUI for this..)
+# Simple ONM server configuration (hopefully somone will write an API and web GUI for this..)
 
 Edit the config.js file and add feeds to either the trusted, untrusted, or banned JSON adding any defult tags that will be added to the feeds RSS items. Update the only_serve_tags JSON to enable this server to be a subject matter specialits
 
@@ -46,7 +44,7 @@ The defult CORS headers allow any site to access the API from most modern browse
 
 RSSURL: //anyonsservername.org/trustedrss/
 
-#URL peramiters
+#Optional RSS URL peramiters
 
 Optionaly add any of the following paramiters to the RSS URL
 
@@ -54,13 +52,15 @@ my_server="http://myrssserver.org/rss.xml" - include my RSS server in the global
 
 my_servers_tags="tag1/tag2" - a list of tags that are added to all items from your RSS server
 
-tags="tag1/tag2" - a list of required tags. One of these needs to be in each item before it is serverd to your page
+Filter your incoming feed using rsstagson and rsstagsoff
+
+e.g. rsstagson="green/eco"  & rsstagsoff="cats/dogs"  only shows item that have a tag green or eco not including any items that also have tags cats or dogs
 
 #How to get your RSS feed into the ONS network
 
 Simply add an ONS RSS feed to your website and include your RSS url as the my_server peramiter. Then ask that servers owner to trust your feed.
 
-Run an OMN server and add your RSS to the trusted RSS list (unforturnatly it will not be trusted until another OMN server lists yours in their trusted OMN list)
+Run an OMN server and add your RSS to the trusted RSS list (unforturnatly your RSS feeds will not be trusted until another OMN server lists yours in their trusted OMN list)
 
 #How ONM does "TRUST" and the prevention of SPAMY RSS items 
 
@@ -75,3 +75,16 @@ If a server starts serving SPAMY RSS items it can be isolated from the ONM netwo
 A server that trusts other SPAMY OMN servers can be removed from the network in the same way thus remmoving all of its SPAMY OMN servers and feeds from the ONM network.
 
 So if you start seeing any SPAM in your feed then connect your site to a diffrent ONM server the old ONM server will see that you have moved your RSS feed  and  hopefully get thge message that they need to be more choosey about the feeds and ONM servers they trust
+
+
+# TO DO
+
+* Write and test the v1.0 ONM software
+* run it on some cloud servers
+* include usefull feeds
+* get sites to start using its feeds adding their own feeds
+* get people to run their own OMN servers
+* Use a database to store everything
+* Design a web gui for managment of servers, feeds, and trust with a secure OAuth login
+* take a vacation!
+
