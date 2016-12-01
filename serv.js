@@ -1,12 +1,17 @@
 
+console.log("STARTING OMN SRVER and LOADING CONFIG");
+console.log("=====================================");
 var config = require("./config");
+console.log(config);
+console.log("=====================================");
 
-console.log("OMN SRVER CONFIG",config);
 
 var rssServers = config.trusted;
-var rssItems = [{link:"dogs"}];
-
+var rssItems = [];
 var getRSS = require("./getrss");
+
+require("./opml")(config.opmlfiles, rssServers); //load rss feeds from ompl files
+//todo load rss feeds from mpl servers
 
 // get the inital set of RSS items
 getRSS(rssServers, rssItems);
@@ -17,5 +22,10 @@ setInterval(function(){
 }, config.updateEvery);
 
 
+//todo get feed lists from other OMN servers
 
+//todo descover omn servers
+
+//start the api
+require("./api")(rssItems,rssServers,["tags go here"]);
 

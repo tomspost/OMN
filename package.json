@@ -4,8 +4,12 @@
   "description": "Open Media Network",
   "main": "serv.js",
   "dependencies": {
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
     "feedparser": "^1.1.5",
-    "request": "^2.79.0"
+    "opmlparser": "^0.8.0",
+    "request": "^2.79.0",
+    "string-hash-colour": "0.0.2"
   },
   "devDependencies": {},
   "scripts": {
