@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script type="text/javascript" src="//npmcdn.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+<style type="text/css">
+    * {
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: sans-serif;
+        color:#ddd;
+    }
+    
+    .grid {
+        border: 1px solid #333;
+    }
+    
+    .grid:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+    
+    .grid-item {
+        text-align: center;
+        vertical-align: middle;
+        position: relative;
+        float: left;
+    }
+    
+    .sizing{
+        display:hidden;
+    }
+    
+    .server {
+        width: 204px;
+        margin: 2px;
+        padding: 4px;
+        background-color:#673AB7;
+    }
+    
+    .tag {
+        width: 100px;
+        margin: 2px;
+        padding: 4px;
+        background-color:#3F51B5;
+    }
+    
+    .item {
+        width: 204px;
+        margin: 2px;
+        padding: 4px;
+        background-color:#2196F3;
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        // Handler for .ready() called.
+        var $grid = $(".grid");
+        $.getJSON("/everything", function(data) {
+            var items = [];
+            $.each(data.rssServers, function(key, val) {
+                items.push("<div class='grid-item server'>" + val.split("/")[2].replace("www.", "") + "</div> ");
+            });
+            $.each(data.rssItems, function(key, val) {
+               // $.each(val.categories, function(key, val) {
+                //    items.push("<div class='grid-item tag'>" + val + "</div> ");
+                //});
+                items.push("<div class='grid-item item'>" + val.title + "</div> ");
+            });
+            $.each(data.rssTags, function(key, val) {
+               // $.each(val.categories, function(key, val) {
+                //    items.push("<div class='grid-item tag'>" + val + "</div> ");
+                //});
+                items.push("<div class='grid-item tag'>" + val + "</div> ");
+            });
+            
+            
+            
+            $grid.append(items.join(""));
+            $grid.isotope({
+                itemSelector: '.grid-item',
+                masonry: {
+                    //columnWidth: 50,
+                }
+            });
+            //$grid.isotope('insert', items;
+            //$grid.isotope( 'insert', items );
+        });
+    });
+</script>
+
+<body>
+    <div class="grid">
+        <div class="grid-item tag sizing">Sizing</div>
+    </div>
+</body>
+
+</html>

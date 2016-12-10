@@ -1,19 +1,33 @@
 var express = require('express');
 var app = express();
-var cors = require('cors');
+var cors = require('cors');  // alow broswers to access from all sites
 
-app.use(cors());
+app.use(cors());  
 app.use(express.static('public'))
 
 function api(rssItems,rssServers,tags){
-app.get('/dog', function (req, res) {
+
+app.get('/test', function (req, res) {
   res.send('Hello World!');
 });
-app.get('/cat', function(req, res) {
+
+app.get('/everything', function(req, res) {
   
-  res.jsonp({
+  var jsonItems = [];
+  
+  rssItems.forEach(function(item,i){
+    jsonItems.push({
+      title: item.title,
+      description: item.description,
+      link: item.link,
+      categories: item.categories,
+      guid: item.guid,
+    })
+  });
+  
+  res.json({
     rssServers:rssServers,
-    rssItems:rssItems,
+    rssItems:jsonItems,
     rssTags:tags
   });
 }); 
@@ -21,7 +35,7 @@ app.get('/cat', function(req, res) {
 
 
 app.listen(process.env.PORT, function () {
-  console.log('Example app listening on port ',process.env.PORT);
+  console.log('OMN is listening on port ',process.env.PORT);
 })
 }
 

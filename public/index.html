@@ -1,1 +1,179 @@
-yobase
+<!DOCTYPE html>
+<html>
+ <meta name="viewport" content="width=device-width, user-scalable=no" />
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script type="text/javascript" src="//npmcdn.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+<style type="text/css">
+    html,
+    body,
+    div,
+    img,
+    span,
+    h1,
+    h2,
+    h3,
+    p,
+    blockquote,
+    pre,
+    a,
+    video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+    
+    body {
+        line-height: 1;
+        background-color: #222;
+
+    }
+    
+    a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+    
+    ol,
+    ul {
+        list-style: none;
+    }
+    
+    blockquote,
+    q {
+        quotes: none;
+    }
+    
+    blockquote:before,
+    blockquote:after,
+    q:before,
+    q:after {
+        content: '';
+        content: none;
+    }
+    
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+    
+    * {
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: sans-serif;
+        color: #ddd;
+    }
+    
+    .grid {
+        border: 1px solid #333;
+    }
+    
+    .grid:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+    .grid-sizer,
+    .grid-item {
+        text-align: center;
+        vertical-align: middle;
+        position: relative;
+        float: left;
+    }
+    
+    
+    .server {
+        width: 204px;
+        margin: 2px;
+        padding: 4px;
+        background-color: #673AB7;
+    }
+    
+    .tag {
+        width: 100px;
+        margin: 2px;
+        padding: 4px;
+        background-color: #2196F3;
+    }
+    
+    .item {
+        width: 200px;
+        margin: 2px;
+        padding: 4px;
+        background-color: #444;
+    }
+    .link {
+        font-size: 80%;
+        background-color: #673AB7;
+    }
+    .itag {
+        font-size: 80%;
+        background-color: #2186E3;
+        color: #222;
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        // Handler for .ready() called.
+        var $grid = $(".grid");
+        $.getJSON("/everything", function(data) {
+            var items = [];
+            $.each(data.rssServers, function(key, val) {
+                //items.push("<div class='grid-item server'>" + val.split("/")[2].replace("www.", "") + "</div> ");
+            });
+            
+            $.each(data.rssItems, function(key, val) {
+                var item ="<div class='grid-item item'><br/><p>";
+                item = item + "<a href='" + val.link + "' target='_blank'>"+ val.title+"</a></p><br/><p>";
+            
+                $.each(val.categories,function(key,val){
+                    item = item + " <span class='itag'>" + val + "</span>";
+                });
+                
+                if (val.link.indexOf("feedproxy") != -1){
+                item = item + "<p><br/><p class='link'>" + val.link.split("/")[4].replace("www.", "") +"</p>";
+                } else {
+                 item = item + "<p><br/><p class='link'>" + val.link.split("/")[2].replace("www.", "") +"</p>";
+                }
+                
+                item = item + "</div>";
+                items.push(item);
+            });
+            
+            
+            
+            $.each(data.rssTags, function(key, val) {
+                // $.each(val.categories, function(key, val) {
+                //    items.push("<div class='grid-item tag'>" + val + "</div> ");
+                //});
+                //items.push("<div class='grid-item tag'>" + val + "</div> ");
+            });
+
+
+
+            $grid.append(items.join(""));
+            $grid.isotope({
+                itemSelector: '.grid-item',
+                masonry: {
+                    //columnWidth: 50,
+                    columnWidth: '.grid-sizer'
+                }
+            });
+            //$grid.isotope('insert', items;
+            //$grid.isotope( 'insert', items );
+            $grid.isotope('shuffle');
+        });
+    });
+</script>
+
+<body>
+    <div class="grid">
+        <div class="grid-sizer item"></div>
+    </div>
+</body>
+
+</html>

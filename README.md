@@ -86,5 +86,16 @@ So if you start seeing any SPAM in your feed then connect your site to a diffren
 * get people to run their own OMN servers
 * Use a database to store everything
 * Design a web gui for managment of servers, feeds, and trust with a secure OAuth login
-* take a vacation!
+
+
+#Name ideas for your OMN servers
+
+180Degrees
+
+Diameticaly opersit
+
+from the other side of the room FTOSOTR.com
+
+from where I am standing FWIAS.com
+abc
 
