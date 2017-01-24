@@ -6,22 +6,25 @@ Your blog or websites stories will be promoted on thousands of other sites and b
 
 #To install on debian or ubuntu linux 
 
-1) Install node.js if you dont have it
-
-sudo apt-get install nodejs
-
+1) Install nodejs if you dont have it
 2) Install GIT if you dont have it already
-
-sudo apt-get install git
-
 3) Git clone the OMN project into an OMN directory
 
+git clone https://github.com/tomspost/OMN.git
+
+sudo npm install -g forever
+
+forever start serv.js
 
 
 
-optionaly edit the config.js file
+Notes on AWS ubuntu pre setup steps
+* sudo apt-get install git
+* curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+* sudo apt-get install -y nodejs
 
-Add the sample serv.js file and run using node serv.js
+remember to edit the config.js file
+demo on  http://54.202.129.137:8080/
 
 #API
 
