@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+<link rel="apple-touch-icon" href="/omn.png">
+<link rel="apple-touch-startup-image" href="/omn.png">
+<meta name="apple-mobile-web-app-title" content="O.M.N.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="icon" href="/omn.png">
+
+
+
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<script type="text/javascript" src="//npmcdn.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+<style type="text/css">
+    html,
+    body,
+    div,
+    img,
+    span,
+    h1,
+    h2,
+    h3,
+    p,
+    blockquote,
+    pre,
+    a,
+    video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+    }
+    
+    body {
+        line-height: 1;
+        background-color: #766;
+    }
+    
+    a {
+        color: inherit;
+        /* blue colors for links too */
+        text-decoration: inherit;
+        /* no underline */
+    }
+    
+    ol,
+    ul {
+        list-style: none;
+    }
+    
+    blockquote,
+    q {
+        quotes: none;
+    }
+    
+    blockquote:before,
+    blockquote:after,
+    q:before,
+    q:after {
+        content: '';
+        content: none;
+    }
+    
+    * {
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: sans-serif;
+        color: #234;
+    }
+    
+    .grid {
+        border: 0px solid #333;
+    }
+    
+    .grid:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+    
+    .grid-sizer,
+    .grid-item {
+        text-align: centerx;
+        vertical-align: middle;
+        position: relative;
+        float: left;
+    }
+    
+    .server {
+        width: 200px;
+        margin: 2px;
+        padding: 4px;
+        background-color: #673AB7;
+    }
+    
+    .tag {
+        width: 200px;
+        margin: 2px;
+        padding: 4px;
+        background-color: #2196F3;
+    }
+    
+    .item {
+        width: 200px;
+        margin: 2px;
+        padding: 4px;
+        background-color: #fff;
+    }
+    
+    .link {
+        font-size: 80%;
+        background-color: #fff;
+        font-style: italic;
+        text-align: right;
+    }
+    
+    .desc {
+        font-size: 80%;
+    }
+    
+    .itag {
+        font-size: 80%;
+        background-color: #2196F3;
+        color: #111;
+    }
+    
+    .iimg {
+        width: 190px;
+    }
+    
+    .tagpick {
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    
+    .url {
+        width: 100%;
+    }
+    
+    .is-checked {
+        background-color: #faa;
+    }
+</style>
+<script>
+    var oldFilter = "";
+    var OMN = {};
+    OMN.url = {};
+    OMN.baseURL = {};
+    OMN.orTags = [];
+    $(document).ready(function() {
+        // Handler for .ready() called.
+        var $grid = $(".grid");
+        $.getJSON("/everything", function(data) {
+                OMN.baseURL = data.baseURL;
+                document.getElementById("url").value = data.baseURL+"/rss";
+                var items = [];
+                var tags = [];
+
+
+                var s13 = Math.round(data.rssTags.length * 0.18);
+                var s23 = Math.round(data.rssTags.length * 0.49);
+                //var s33 = Math.round(data.rssTags.length * 0.28);
+                $.each(data.rssTags, function(key, val) {
+                    if ((s13 === key) || (s23 === key)) {
+                        tags.push("<br/>");
+                    }
+                    if (val.c > 3) {
+                        tags.push("<button class='itag'>" + val.tag + "</button> ");
+                    }
+                });
+
+                $.each(data.rssItems, function(key, val) {
+                    var item = "<div class='grid-item item' sortme='"
+                    $.each(val.categories, function(key, val) {
+                        item = item + " " + val + " ";
+                    });
+                    item = item + "'><p>";
+                    item = item + "<a href='" + val.link + "' target='_blank'>" + val.title + "</a></p>";
+
+                    if (val.image && (val.image.indexOf("logo") == -1)) {
+                        item = item + "<img class='iimg' src='" + val.image + "'/>";
+                    }
+                    else {
+                        item = item + "<br/>"
+                    }
+
+                    item = item + "<p class='desc'>" + val.description + "</p><br/>";
+
+                    $.each(val.categories, function(key, val) {
+                        item = item + " <span class='itag'>" + val + "</span>";
+                    });
+
+                    if (val.link.indexOf("feedproxy") != -1) {
+                        item = item + "<p class='link'>" + val.link.split("/")[4].replace("www.", "") + "</p>";
+                    }
+                    else {
+                        item = item + "<p class='link'>" + val.link.split("/")[2].replace("www.", "") + "</p>";
+                    }
+                    item = item + "</div>";
+                    items.push(item);
+                });
+
+
+
+                $.each(data.rssTags, function(key, val) {
+                    // $.each(val.categories, function(key, val) {
+                    //    items.push("<div class='grid-item tag'>" + val + "</div> ");
+                    //});
+                    //items.push("<div class='grid-item tag'>" + val + "</div> ");
+                });
+
+
+
+                $grid.append(items.join(""));
+                $(".tagpick").append(tags.join(""));
+                $grid.isotope({
+                    itemSelector: '.grid-item',
+                    masonry: {
+                        //columnWidth: 50,
+                        columnWidth: '.grid-sizer'
+                    }
+
+                });
+                
+                
+                //$grid.isotope('insert', items;
+                //$grid.isotope( 'insert', items );
+                $grid.isotope('shuffle');
+
+
+
+                $('.itag').on('click', function() {
+
+
+                    var filterValue = $(this).html();
+
+                    if($(this).hasClass('is-checked')) {
+                        $(this).removeClass("is-checked");
+                        // add the string to filter
+                        $.each(OMN.orTags,function(key, val) {
+                            if (val == filterValue){
+                                OMN.orTags.splice(key, 1);
+                            } 
+                        });
+                    } else {
+                        // remove the string from filter
+                        $(this).addClass("is-checked");
+                        OMN.orTags.push(filterValue);
+                    }
+                    //alert(JSON.stringify(OMN.orTags));
+
+                    //alert("hi");
+                    if (oldFilter == filterValue) {
+                        $grid.isotope({
+                            filter: "*"
+                        });
+                        filterValue = "";
+                    }
+                    else {
+                        $grid.isotope({
+                            filter: "[sortme*='" + filterValue + "']"
+                        });
+                    }
+                    oldFilter = filterValue;
+
+                    //build and set the RSS URL
+                    OMN.url = OMN.baseURL + "/rss?tagsOr='XX" + "'&tagsAnd='" + "YY'"; 
+                    document.getElementById("url").value = OMN.url;
+                    
+                    $grid.isotope('shuffle');
+
+                });
+
+
+            $grid.imagesLoaded().progress(function() {
+                $grid.isotope('layout');
+            });
+        });
+
+
+    });
+</script>
+
+<body>
+    <input id="url" class="url" value="..."></input>
+    <div class="tagpick"></div>
+    <div class="grid">
+        <div class="grid-sizer item"></div>
+    </div>
+</body>
+
+</html>

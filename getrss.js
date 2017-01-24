@@ -1,7 +1,11 @@
 //get RSS items from all OMN servers
 
 var FeedParser = require('feedparser'),
-    request = require('request');
+    request = require('request'),
+    strip = require('striptags'),
+    truncate = require('truncate'),
+    config = require("./config");
+
 
 function errors(rssFeed, j) {
     // remove feeds that are erroring. add them back every day!
@@ -16,15 +20,17 @@ function gertAllRSS(rssServers, rssItems, tags) {
 
 function getARSS(rssFeed, rssItems, rsssServers, tags, j) {
 
+
+
     var req = request(rssFeed),
         feedparser = new FeedParser([]); //options needed
 
-    var limit = 500;
+    var limit = 50000;
     var count = 0;
 
     req.on('error', function(error) {
         // handle any request errors 
-        //////////// console.log("req ERROR ", error);
+        console.log("req ERROR ", error);
     });
 
     req.on('response', function(res) {
@@ -35,11 +41,6 @@ function getARSS(rssFeed, rssItems, rsssServers, tags, j) {
         stream.pipe(feedparser);
     });
 
-
-
-    feedparser.on('error', function(error) {
-        // always handle errors 
-    });
 
     feedparser.on('error', function(error) {
         // handle any request errors 
@@ -54,27 +55,42 @@ function getARSS(rssFeed, rssItems, rsssServers, tags, j) {
             item;
 
         while (item = stream.read()) {
+
+            var newTags = ["all"];
+            // TODO Add site name as tag
+            if (item.link.indexOf("feedproxy") != -1) {
+                newTags.push("@"+item.link.split("/")[4].toLowerCase());
+            }
+            else {
+                newTags.push("@"+item.link.split("/")[2].replace("www.", "").toLowerCase().split(".")[0]);
+            }
+            // check tag quality
+            item.categories.forEach(function(tag, i) {
+                newTags.push(tag.toLowerCase());
+            });
+
+            item.categories = newTags;
+
+            // TODO convert tags to lower case
+
+            // TODO Remove long tags
+
+            // strip all HTML from the disctription
+
+            if (config.stipHTMLtags) {
+                item.description = strip(item.description);
+            }
+
+            // shorten the discription
+
+            item.description = truncate(item.description, config.truncateDiscriptions);
+
             //check if the item already exists via brutforce check of all current items!
             var replace = -1;
             //console.log(item);
             count = count + 1;
             if (limit > count) {
 
-                //pars tags
-                item.categories.forEach(function(tag, i) {
-                    //console.log(tag);
-                    var use = true;
-                    tags.forEach(function(check) {
-                        if (check == tag.toLowerCase()) {
-                            use = false;
-                        }
-                    });
-                    if (use == true) {
-                        if (tag.length < 30) {
-                            tags.push(tag.toLowerCase());
-                        }
-                    }
-                });
 
                 var replace = -1;
                 rssItems.forEach(function(checkIt, i) {
@@ -92,6 +108,30 @@ function getARSS(rssFeed, rssItems, rsssServers, tags, j) {
                     //console.log(tags.length);
                     //console.log(rssItems.length);
                 }
+
+                //pars tags
+                item.categories.forEach(function(tag, i) {
+                    //console.log(tag);
+                    var use = true;
+                    tags.forEach(function(check) {
+                        if (check.tag == tag) {
+                            use = false;
+                            if (replace === -1) {  //check if the tag is in an updated item
+                                check.c++;
+                            }
+                        }
+                    });
+                    if (use == true) {
+                        if (tag.length < 30) {
+                            tags.push({
+                                tag: tag,
+                                c: 1
+                            });
+                        }
+                    }
+                });
+
+
             }
         }
     });

@@ -4,9 +4,20 @@ Let's break out of the straightjacket of the dotcons algoritms and get web2.0 li
 
 Your blog or websites stories will be promoted on thousands of other sites and blogs.
 
-#To install
+#To install on debian or ubuntu linux 
 
-npm install OMN
+1) Install node.js if you dont have it
+
+sudo apt-get install nodejs
+
+2) Install GIT if you dont have it already
+
+sudo apt-get install git
+
+3) Git clone the OMN project into an OMN directory
+
+
+
 
 optionaly edit the config.js file
 
@@ -54,7 +65,7 @@ my_servers_tags="tag1/tag2" - a list of tags that are added to all items from yo
 
 Filter your incoming feed using rsstagson and rsstagsoff
 
-e.g. rsstagson="green/eco"  & rsstagsoff="cats/dogs"  only shows item that have a tag green or eco not including any items that also have tags cats or dogs
+e.g. tagsAnd="green/eco"  & tagsOr="cats/dogs"  only shows item that have a tag green or eco not including any items that also have tags cats or dogs
 
 #How to get your RSS feed into the ONS network
 

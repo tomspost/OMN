@@ -1,8 +1,19 @@
 <!DOCTYPE html>
 <html>
- <meta name="viewport" content="width=device-width, user-scalable=no" />
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+<link rel="apple-touch-icon" href="/omn.png">
+<link rel="apple-touch-startup-image" href="/omn.png">
+<meta name="apple-mobile-web-app-title" content="#OMN">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="icon" href="/omn.png">
+
+
+
+
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 <script type="text/javascript" src="//npmcdn.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
 <style type="text/css">
     html,
     body,
@@ -27,14 +38,15 @@
     
     body {
         line-height: 1;
-        background-color: #222;
-
+        background-color: #766;
     }
     
-    a {
-  color: inherit; /* blue colors for links too */
-  text-decoration: inherit; /* no underline */
-}
+    div a {
+        color: inherit;
+        /* blue colors for links too */
+        text-decoration: inherit;
+        /* no underline */
+    }
     
     ol,
     ul {
@@ -54,22 +66,17 @@
         content: none;
     }
     
-    table {
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
-    
     * {
         box-sizing: border-box;
     }
     
     body {
         font-family: sans-serif;
-        color: #ddd;
+        color: #234;
     }
     
     .grid {
-        border: 1px solid #333;
+        border: 0px solid #333;
     }
     
     .grid:after {
@@ -77,24 +84,24 @@
         display: block;
         clear: both;
     }
+    
     .grid-sizer,
     .grid-item {
-        text-align: center;
+        text-align: centerx;
         vertical-align: middle;
         position: relative;
         float: left;
     }
     
-    
     .server {
-        width: 204px;
+        width: 200px;
         margin: 2px;
         padding: 4px;
         background-color: #673AB7;
     }
     
     .tag {
-        width: 100px;
+        width: 200px;
         margin: 2px;
         padding: 4px;
         background-color: #2196F3;
@@ -104,48 +111,105 @@
         width: 200px;
         margin: 2px;
         padding: 4px;
-        background-color: #444;
+        background-color: #fff;
     }
+    
     .link {
         font-size: 80%;
-        background-color: #673AB7;
+        background-color: #fff;
+        font-style: italic;
+        text-align: right;
     }
+    
+    .desc {
+        font-size: 80%;
+    }
+    
     .itag {
         font-size: 80%;
-        background-color: #2186E3;
-        color: #222;
+        background-color: #2196F3;
+        color: #111;
+    }
+    
+    .iimg {
+        width: 190px;
+    }
+    
+    .tagpick {
+        width: 100%;
+        /*overflow-x: auto;
+        white-space: nowrap;*/
+    }
+    
+    .url {
+        width: 100%;
+    }
+    
+    .is-checked {
+        background-color: #faa;
     }
 </style>
 <script>
+    var oldFilter = "";
+    var OMN = {};
+    OMN.url = {};
+    OMN.baseURL = {};
+    OMN.orTags = [];
     $(document).ready(function() {
         // Handler for .ready() called.
         var $grid = $(".grid");
         $.getJSON("/everything", function(data) {
+            OMN.baseURL = data.baseURL;
+            document.getElementById("url").href = data.baseURL + "rss";
             var items = [];
-            $.each(data.rssServers, function(key, val) {
-                //items.push("<div class='grid-item server'>" + val.split("/")[2].replace("www.", "") + "</div> ");
+            var tags = [];
+
+
+            var s13 = Math.round(data.rssTags.length * 0.18);
+            var s23 = Math.round(data.rssTags.length * 0.49);
+            //var s33 = Math.round(data.rssTags.length * 0.28);
+            $.each(data.rssTags, function(key, val) {
+                if ((s13 === key) || (s23 === key)) {
+                    tags.push("");
+                }
+                if (val.c > 2) {
+                    tags.push("<button class='itag'>" + val.tag + "</button> ");
+                }
             });
-            
+
             $.each(data.rssItems, function(key, val) {
-                var item ="<div class='grid-item item'><br/><p>";
-                item = item + "<a href='" + val.link + "' target='_blank'>"+ val.title+"</a></p><br/><p>";
-            
-                $.each(val.categories,function(key,val){
+                var item = "<div class='grid-item item' sortme='"
+                $.each(val.categories, function(key, val) {
+                    item = item + " " + val + " ";
+                });
+                item = item + "'><p>";
+                item = item + "<a href='" + val.link + "' target='_blank'>" + val.title + "</a></p>";
+
+                if (val.image && (val.image.indexOf("logo") == -1)) {
+                    item = item + "<img class='iimg' src='" + val.image + "'/>";
+                }
+                else {
+                    item = item + "<br/>"
+                }
+
+                item = item + "<p class='desc'>" + val.description + "</p><br/>";
+
+                $.each(val.categories, function(key, val) {
                     item = item + " <span class='itag'>" + val + "</span>";
                 });
-                
-                if (val.link.indexOf("feedproxy") != -1){
-                item = item + "<p><br/><p class='link'>" + val.link.split("/")[4].replace("www.", "") +"</p>";
-                } else {
-                 item = item + "<p><br/><p class='link'>" + val.link.split("/")[2].replace("www.", "") +"</p>";
+
+                if (val.link.indexOf("feedproxy") != -1) {
+                    item = item + "<p class='link'>" + val.link.split("/")[4].replace("www.", "") + "</p>";
                 }
-                
+                else {
+                    item = item + "<p class='link'>" + val.link.split("/")[2].replace("www.", "") + "</p>";
+                }
                 item = item + "</div>";
                 items.push(item);
             });
-            
-            
-            
+
+
+
             $.each(data.rssTags, function(key, val) {
                 // $.each(val.categories, function(key, val) {
                 //    items.push("<div class='grid-item tag'>" + val + "</div> ");
@@ -156,21 +220,91 @@
 
 
             $grid.append(items.join(""));
+            $(".tagpick").append(tags.join(""));
             $grid.isotope({
                 itemSelector: '.grid-item',
                 masonry: {
                     //columnWidth: 50,
                     columnWidth: '.grid-sizer'
                 }
+
             });
+
+
             //$grid.isotope('insert', items;
             //$grid.isotope( 'insert', items );
             $grid.isotope('shuffle');
+
+
+
+            $('.itag').on('click', function() {
+
+
+                var filterValue = $(this).html();
+
+                if ($(this).hasClass('is-checked')) {
+                    $(this).removeClass("is-checked");
+                    // add the string to filter
+                    $.each(OMN.orTags, function(key, val) {
+                        if (val == filterValue) {
+                            OMN.orTags.splice(key, 1);
+                        }
+                    });
+                }
+                else {
+                    // remove the string from filter
+                    $(this).addClass("is-checked");
+                    OMN.orTags.push(filterValue);
+                }
+                //alert(JSON.stringify(OMN.orTags));
+
+                //alert("hi");
+                if (OMN.orTags.length == 0) {
+                    $grid.isotope({
+                        filter: "*"
+                    });
+                    filterValue = "";
+                }
+                else {
+                    var filter = "";
+                    $.each(OMN.orTags, function(key, val) {
+                        filter = filter + "[sortme*='" + val + "']"
+                    });
+                    filter = filter.split("][").join("],[");
+                    $grid.isotope({
+                        filter: filter,
+                    });
+                }
+                oldFilter = filterValue;
+
+                //build and set the RSS URL
+                OMN.url = OMN.baseURL + "rss?tagsOr=" +OMN.orTags.join("/")+ "&tagsAnd=" + "";
+                document.getElementById("url").href = OMN.url;
+
+                $grid.isotope('shuffle');
+
+            });
+
+
+            $grid.imagesLoaded().progress(function() {
+                $grid.isotope('layout');
+            });
         });
+
+
     });
 </script>
 
 <body>
+    <div class="url">
+        <a id="url" target="blank_" href="">
+            <button>RSS Link</button>
+            </a>
+        <a id="embed" target="blank_" href="">
+            <button>Embed HTML Code</button>
+        </a>
+    </div>
+    <div class="tagpick"></div>
     <div class="grid">
         <div class="grid-sizer item"></div>
     </div>

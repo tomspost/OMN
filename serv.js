@@ -4,7 +4,7 @@ var config = require("./config");
 console.log(config);
 console.log("=====================================");
 
-var rssServers = config.trusted;
+var rssServers = config.trusted; 
 var rssItems = [];
 var tags = [];
 var getRSS = require("./getrss");
@@ -12,11 +12,13 @@ var getRSS = require("./getrss");
 console.log("OMN is fetching feeds in local opml files")
 require("./opml")(config.opmlfiles, rssServers); //load rss feeds from ompl files
 
-//todo load rss feeds from mpl servers
+//todo load rss feeds from ompl servers
 
-getRSS(rssServers, rssItems,tags); //fetch the first batch of items
+setTimeout(function(){
+getRSS(rssServers, rssItems,tags); //fetch the first batch of items after reading server lists
+}, 3000);
 
-console.log("OMN is fetching and deduping RSS items every ",config.updateEvery/100/60," mins");
+console.log("OMN is fetching and deduping RSS items every ",config.updateEvery/1000/60," mins");
 setInterval(function(){
     getRSS(rssServers, rssItems,tags);
 }, config.updateEvery);

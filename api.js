@@ -1,64 +1,97 @@
 var config = require("./config");
 var express = require('express');
 var app = express();
-var cors = require('cors');  // alow broswers to access from all sites
-
+var cors = require('cors'); // alow broswers to access from all sites
 var RSS = require('rss');
 
-/* lets create an rss feed */
+app.use(cors());
+app.use(express.static('public'));
 
-var feed = new RSS(config.feedOptions);
-
-
-app.use(cors());  
-app.use(express.static('public'))
-
-function api(rssItems,rssServers,tags){
-
-app.get('/test', function (req, res) {
-  res.send('OMN server is up and running!!! <br/> with ', rssItems.length , ' RSS Items <br/> from ',rssServers.length);
-});
-
-
-app.get('/rss', function (req,res){
+function api(rssItems, rssServers, tags) {
   
-  var feed = new RSS(config.feedOptions);
-  
-  rssItems.forEach(function(item,i) {
-    feed.item(item);
+  app.get('/test', function(req, res) {
+    res.send('OMN server is up and running!!! <br/> with ' + rssItems.length + ' RSS Items <br/> from '+ rssServers.length+' Servers');
   });
-  res.type('application/rss+xml');
-  res.send(feed.xml({indent: false}));
-  
-});
+
+  app.get('/rss', function(req, res) {
+    //////config.feedOptions.pubDate = new Date();
+    var feed = new RSS(config.feedOptions);
 
 
-app.get('/everything', function(req, res) {
-  
-  var jsonItems = [];
-  
-  rssItems.forEach(function(item,i){
-    jsonItems.push({
-      title: item.title,
-      description: item.description,
-      link: item.link,
-      categories: item.categories,
-      guid: item.guid,
-    })
+    //rssItems.forEach(function(item, i) {
+    var item = "";
+
+    var step = 0;
+    for (step = rssItems.length -1; (rssItems.length - 200) < step; step--) {
+      
+      //if ((Math.random()*100) < 20) {continue;}
+      if (step <0) {break;}
+      item = rssItems[step];
+      var or = false;
+      var and = false;
+
+      // find ORed tag items and add to the feed
+      if (typeof(req.query.tagsOr) != undefined) {
+        item.categories.forEach(function(tag, j) {
+          req.query.tagsOr.split('/').forEach(function(check, k) {
+            if (check == tag) {
+              or = true;
+            }
+          });
+        })
+      }
+      else {
+        or = true;
+      }
+
+
+      // add found items to requested feed
+      if ((or === true) || (and === true)) {
+        feed.item(item);
+      }
+
+    }
+    //});
+
+    res.type('application/rss+xml');
+    res.send(feed.xml({
+      indent: false
+    }));
+
   });
-  
-  res.json({
-    rssServers:rssServers,
-    rssItems:jsonItems,
-    rssTags:tags
+
+
+
+
+
+  app.get('/everything', function(req, res) {
+
+    var jsonItems = [];
+
+    rssItems.forEach(function(item, i) {
+      jsonItems.push({
+        title: item.title,
+        description: item.description,
+        link: item.link,
+        categories: item.categories,
+        guid: item.guid,
+        image: item.image.url,
+      })
+    });
+
+    res.json({
+      rssServers: rssServers,
+      rssItems: jsonItems,
+      rssTags: tags,
+      baseURL: config.OMNURL,
+    });
   });
-}); 
-  
 
 
-app.listen(process.env.PORT, function () {
-  console.log('OMN is listening on port ',process.env.PORT);
-})
+
+  app.listen(process.env.PORT, function() {
+    console.log('OMN is listening on port ', process.env.PORT);
+  })
 }
 
 module.exports = api;
