@@ -89,7 +89,7 @@ function api(rssItems, rssServers, tags) {
 
 
 
-  app.listen(process.env.PORT, function() {
+  app.listen(process.env.PORT || 8080, function() {
     console.log('OMN is listening on port ', process.env.PORT);
   })
 }
