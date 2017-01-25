@@ -31,7 +31,7 @@ function api(rssItems, rssServers, tags) {
       var and = false;
 
       // find ORed tag items and add to the feed
-      if (typeof(req.query.tagsOr) != undefined) {
+      if (req.query.tagsOr) {
         item.categories.forEach(function(tag, j) {
           req.query.tagsOr.split('/').forEach(function(check, k) {
             if (check == tag) {

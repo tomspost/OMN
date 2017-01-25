@@ -13,7 +13,7 @@
 
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 <script type="text/javascript" src="//npmcdn.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
-<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+<script src="//npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
 <style type="text/css">
     html,
     body,
@@ -278,7 +278,7 @@
                 oldFilter = filterValue;
 
                 //build and set the RSS URL
-                OMN.url = OMN.baseURL + "rss?tagsOr=" +OMN.orTags.join("/")+ "&tagsAnd=" + "";
+                OMN.url = "/rss?tagsOr=" +OMN.orTags.join("/")+ "&tagsAnd=" + "";
                 document.getElementById("url").href = OMN.url;
 
                 $grid.isotope('shuffle');

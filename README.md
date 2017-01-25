@@ -13,8 +13,10 @@ Your blog or websites stories will be promoted on thousands of other sites and b
 git clone https://github.com/tomspost/OMN.git
 
 sudo npm install -g forever
-
+cd OMN
 forever start serv.js
+
+
 
 
 
@@ -25,6 +27,7 @@ Notes on AWS ubuntu pre setup steps
 
 remember to edit the config.js file
 demo on  http://54.202.129.137:8080/
+use the forever command to see how to stop the server, restart and look at logs
 
 #API
 
