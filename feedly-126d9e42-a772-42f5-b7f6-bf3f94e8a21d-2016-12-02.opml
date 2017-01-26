@@ -6,24 +6,36 @@
     </head>
     <body>
         <outline text="OMN" title="OMN">
+           <outline type="rss" text="plugandplay" title="plugandplay" xmlUrl="https://www.youtube.com/feeds/videos.xml?playlist_id=PLTGrPEmtUkeNKMiIcWV_bjNZgC8WoG63u"/>
             <outline type="rss" text="Displaying items by tag" title="Displaying items by tag" xmlUrl="http://www.spinwatch.org/index.php/blog?format=feed" htmlUrl="http://www.spinwatch.org"/>
-            <outline type="rss" text="Corporate Watch" title="Corporate Watch" xmlUrl="http://www.corporatewatch.org/rss.xml" htmlUrl="https://corporatewatch.org"/>
             <outline type="rss" text="Welfare Weekly" title="Welfare Weekly" xmlUrl="http://feeds.feedburner.com/welfareweekly" htmlUrl="http://www.welfareweekly.com"/>
             <outline type="rss" text="Novara Media" title="Novara Media" xmlUrl="http://novaramedia.com/feed/" htmlUrl="http://novaramedia.com"/>
             <outline type="rss" text="The Canary" title="The Canary" xmlUrl="http://www.thecanary.co/feed/" htmlUrl="http://www.thecanary.co"/>
             <outline type="rss" text="Undercurrents Blog" title="Undercurrents Blog" xmlUrl="http://feeds.feedburner.com/UndercurrentsAlternativeNews" htmlUrl="http://undercurrentsvideo.blogspot.com/"/>
             <outline type="rss" text="The Real News" title="The Real News" xmlUrl="http://therealnews.com/rss/therealnewsvideo.rss" htmlUrl="http://therealnews.com/idirectep.php?e=57"/>
-            <outline type="rss" text="MULE" title="MULE" xmlUrl="http://manchestermule.com/feed" htmlUrl="http://manchestermule.com"/>
+            <outline type="rss" text="friendlyfire" title="friendlyfire" xmlUrl="https://www.youtube.com/feeds/videos.xml?playlist_id=PLTGrPEmtUkeNyloTx-lgRJzliGeZVoV3_"/>
+            <outline type="rss" text="grassroots" title="grassroots" xmlUrl="https://www.youtube.com/feeds/videos.xml?playlist_id=PLTGrPEmtUkeNLct6PPTSalr-BCVTsT_TV"/>
             <outline type="rss" text="Democracy Now! Video" title="Democracy Now! Video" xmlUrl="http://www.democracynow.org/podcast-video.xml" htmlUrl="http://www.democracynow.org/"/>
             <outline type="rss" text="The Bristol Cable" title="The Bristol Cable" xmlUrl="http://thebristolcable.org/feed/" htmlUrl="https://thebristolcable.org"/>
-            <outline type="rss" text="Real Media – The News You Don't See" title="Real Media – The News You Don't See" xmlUrl="http://realmedia.press/feed/" htmlUrl="http://realmedia.press"/>
+            <outline type="rss" text="Earth First! Journal" title="Earth First! Journal" xmlUrl="http://earthfirstjournal.org/feed/" htmlUrl="http://earthfirstjournal.org"/>
+            <outline type="rss" text="The Real News Network" title="The Real News Network" xmlUrl="http://therealnews.com/rss/therealnews.rss" htmlUrl="http://therealnews.com/idirectep.php?e=57"/>
+            <outline type="rss" text="MayDay Rooms" title="MayDay Rooms" xmlUrl="http://maydayrooms.org/feed/" htmlUrl="http://maydayrooms.org"/>
+            <outline type="rss" text="The latest episodes from On The Media" title="The latest episodes from On The Media" xmlUrl="http://www.onthemedia.org/feeds/episodes/otm/" htmlUrl="http://www.wnyc.org/shows/otm"/>
+            <outline type="rss" text="visionOntv" title="visionOntv" xmlUrl="https://www.youtube.com/feeds/videos.xml?playlist_id=PLTGrPEmtUkePSHESG5nLiRXOvQas3ZEy9"/>
+            <outline type="rss" text="headmix" title="headmix" xmlUrl="https://www.youtube.com/feeds/videos.xml?playlist_id=PLTGrPEmtUkeP2aBb2kSqOa-xZ9E8goDKf"/>
+            <outline type="rss" text="Corporate Watch" title="Corporate Watch" xmlUrl="http://www.corporatewatch.org/rss.xml" htmlUrl="https://corporatewatch.org"/>
+            <outline type="rss" text="MULE" title="MULE" xmlUrl="http://manchestermule.com/feed" htmlUrl="http://manchestermule.com"/>
+            <outline type="rss" text="Real Media - The News You Don't See » Posts by Real Media Feed" title="Real Media - The News You Don't See » Posts by Real Media Feed" xmlUrl="http://realmedia.press/author/realmediarealnews/feed/" htmlUrl="http://realmedia.press"/>
+            <outline type="rss" text="Hamishcampbell" title="Hamishcampbell" xmlUrl="http://hamishcampbell.com/en/news/-/asset_publisher/jH1sfCGpFzHU/rss?p_p_cacheability=cacheLevelPage" htmlUrl="http://hamishcampbell.com/en/news/-/asset_publisher/jH1sfCGpFzHU/rss"/>
+            <outline type="rss" text="Team Human" title="Team Human" xmlUrl="http://teamhuman.fm/feed/episodes" htmlUrl="http://teamhuman.fm/feed/episodes"/>
+            <outline type="rss" text="NovaraFM: Radio for a Different Politics" title="NovaraFM: Radio for a Different Politics" xmlUrl="http://feeds.feedburner.com/NovaraMediaPodcast" htmlUrl="http://podcast.novaramedia.com"/>
             <outline type="rss" text="New Internationalist" title="New Internationalist" xmlUrl="http://www.newint.org/rss/index.xml" htmlUrl="http://www.newint.org/"/>
+            <outline type="rss" text="Globalviews - visionOntv" title="Globalviews - visionOntv" xmlUrl="https://www.youtube.com/feeds/videos.xml?playlist_id=PLTGrPEmtUkeOBvHGGIZRcoaOdhRS3SHzQ"/>
             <outline type="rss" text="subMedia.tv" title="subMedia.tv" xmlUrl="http://submedia.tv/stimulator/feed/" htmlUrl="https://submedia.tv/stimulator"/>
             <outline type="rss" text="STRIKE!" title="STRIKE!" xmlUrl="http://www.strikemag.org/feed/" htmlUrl="http://strikemag.org"/>
-            <outline type="rss" text="The Real News Network" title="The Real News Network" xmlUrl="http://therealnews.com/rss/therealnews.rss" htmlUrl="http://therealnews.com/idirectep.php?e=57"/>
             <outline type="rss" text="Counterfire Home Page" title="Counterfire Home Page" xmlUrl="http://www.counterfire.org/index.php?format=feed&amp;type=rss" htmlUrl="http://www.counterfire.org/"/>
             <outline type="rss" text="openDemocracy" title="openDemocracy" xmlUrl="http://www.opendemocracy.net/xml/rss/home/index.xml" htmlUrl="https://www.opendemocracy.net/"/>
-            <outline type="rss" text="MayDay Rooms" title="MayDay Rooms" xmlUrl="http://maydayrooms.org/feed/" htmlUrl="http://maydayrooms.org"/>
+<outline type="rss" text="Red Pepper" title="Red Pepper" xmlUrl="http://www.redpepper.org.uk/feed" htmlUrl="http://www.redpepper.org.uk"/>
             <outline type="rss" text="Red Pepper" title="Red Pepper" xmlUrl="http://www.redpepper.org.uk/feed" htmlUrl="http://www.redpepper.org.uk"/>
         </outline>
     </body>
