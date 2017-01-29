@@ -8,12 +8,10 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="icon" href="/omn.png">
 
-
-
-
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 <script type="text/javascript" src="//npmcdn.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
 <script src="//npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+<script type="text/javascript" src="//npmcdn.com/isotope-packery@2/packery-mode.pkgd.js"></script>
 <style type="text/css">
     html,
     body,
@@ -182,17 +180,32 @@
                 $.each(val.categories, function(key, val) {
                     item = item + " " + val + " ";
                 });
-                item = item + "'><p>";
-                item = item + "<a href='" + val.link + "' target='_blank'>" + val.title + "</a></p>";
+                item = item + "'>";
+                item = item + "<a href='" + val.link + "' target='_blank'><p>" + val.title + "</p>";
 
-                if (val.image && (val.image.indexOf("logo") == -1)) {
+                if (val.image && ((val.image.indexOf("logo") + (val.image.indexOf("CoverArtwork"))) == -2)) {
                     item = item + "<img class='iimg' src='" + val.image + "'/>";
                 }
                 else {
                     item = item + "<br/>"
                 }
 
-                item = item + "<p class='desc'>" + val.description + "</p><br/>";
+
+
+                item = item + "<p class='desc'>" + val.description + "</p></a><br/>";
+                
+                
+                if (val.enclosures) {
+                    if (val.enclosures.length > 0) {
+                        $.each(val.enclosures,function(key, val) {
+                        item = item + '<'+val.type.split('/')[0]
+                        item = item + ' class="iimg" controls preload="none">';
+                        item = item + '<source src="' + val.url + '" type="' + val.type + '">';
+                        item = item + '</'+val.type.split('/')[0]+' >';
+                        })
+                    }
+                }
+
 
                 $.each(val.categories, function(key, val) {
                     item = item + " <span class='itag'>" + val + "</span>";
@@ -220,13 +233,19 @@
 
 
             $grid.append(items.join(""));
+
+
             $(".tagpick").append(tags.join(""));
+            
+            
             $grid.isotope({
                 itemSelector: '.grid-item',
-                masonry: {
-                    //columnWidth: 50,
-                    columnWidth: '.grid-sizer'
-                }
+                layoutMode: 'packery',
+
+                //masonry: {
+                //    //columnWidth: 50,
+                //    columnWidth: '.grid-sizer'
+                //}
 
             });
 
@@ -278,11 +297,10 @@
                 oldFilter = filterValue;
 
                 //build and set the RSS URL
-                OMN.url = "/rss?tagsOr=" +OMN.orTags.join("/")+ "&tagsAnd=" + "";
+                OMN.url = "/rss?tagsOr=" + OMN.orTags.join("/") + "&tagsAnd=" + "";
                 document.getElementById("url").href = OMN.url;
 
                 $grid.isotope('shuffle');
-
             });
 
 
@@ -299,7 +317,7 @@
     <div class="url">
         <a id="url" target="blank_" href="">
             <button>RSS Link</button>
-            </a>
+        </a>
         <a id="embed" target="blank_" href="">
             <button>Embed HTML Code</button>
         </a>
