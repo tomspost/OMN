@@ -56,6 +56,8 @@ function getARSS(rssFeed, rssItems, rsssServers, tags, j) {
 
         while (item = stream.read()) {
 
+            item.url = item.link;
+            
             var newTags = ["all"];
             // TODO Add site name as tag
             if (item.link.indexOf("feedproxy") != -1) {

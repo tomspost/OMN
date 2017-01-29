@@ -52,6 +52,8 @@ function api(rssItems, rssServers, tags) {
 
     }
     //});
+    
+    var xml = feed.xml({indent:true});
 
     res.type('application/rss+xml');
     res.send(feed.xml({
