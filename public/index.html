@@ -193,15 +193,15 @@
 
 
                 item = item + "<p class='desc'>" + val.description + "</p></a><br/>";
-                
-                
+
+
                 if (val.enclosures) {
                     if (val.enclosures.length > 0) {
-                        $.each(val.enclosures,function(key, val) {
-                        item = item + '<'+val.type.split('/')[0]
-                        item = item + ' class="iimg" controls preload="none">';
-                        item = item + '<source src="' + val.url + '" type="' + val.type + '">';
-                        item = item + '</'+val.type.split('/')[0]+' >';
+                        $.each(val.enclosures, function(key, val) {
+                            item = item + '<' + val.type.split('/')[0]
+                            item = item + ' class="iimg" controls preload="none">';
+                            item = item + '<source src="' + val.url + '" type="' + val.type + '">';
+                            item = item + '</' + val.type.split('/')[0] + ' >';
                         })
                     }
                 }
@@ -236,8 +236,8 @@
 
 
             $(".tagpick").append(tags.join(""));
-            
-            
+
+
             $grid.isotope({
                 itemSelector: '.grid-item',
                 layoutMode: 'packery',
@@ -261,20 +261,42 @@
 
                 var filterValue = $(this).html();
 
-                if ($(this).hasClass('is-checked')) {
-                    $(this).removeClass("is-checked");
-                    // add the string to filter
+                // no-checked > or-checked > and-checked > not-checked
+                
+                
+//                $('.toggle').click(function () {
+//  $('div').each(function(){
+//    var classes = ['class1','class2','class3'];
+//    this.className = classes[($.inArray(this.className, classes)+1)%classes.length];
+//  });
+//});
+                
+                
+
+                // remove or checked and add and
+                if ($(this).hasClass('no-checked')) {
+                    $(this).removeClass("no-checked");
+                    // add the string to filter  
                     $.each(OMN.orTags, function(key, val) {
                         if (val == filterValue) {
                             OMN.orTags.splice(key, 1);
                         }
                     });
                 }
+                
+ 
+                
+                
                 else {
                     // remove the string from filter
                     $(this).addClass("is-checked");
                     OMN.orTags.push(filterValue);
                 }
+
+
+
+
+
                 //alert(JSON.stringify(OMN.orTags));
 
                 //alert("hi");

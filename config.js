@@ -1,7 +1,7 @@
 // OMN configuration - this will be replaced by a db with a web GUI 
 
 var config = {
-    OMNURL: "https://omn-tomspost.c9users.io/",  // this sites base url
+    OMNURL: "/",  // this sites base url
     updateEvery: 10* 60 * 1000, //get new RSS items every 10 min  for testing in ms
     trusted: [
         //"http://www.greenpeace.org/international/Templates/Planet3/Handlers/RssHandler.ashx?type=videos&epslanguage=en-GB",
