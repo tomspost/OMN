@@ -2,7 +2,7 @@
 
 var config = {
     OMNURL: "/",  // this sites base url
-    updateEvery: 10* 60 * 1000, //get new RSS items every 10 min  for testing in ms
+    updateEvery: 60 * 60 * 1000, //get new RSS items every 1 H  for production (in ms)
     trusted: [
         //"http://www.greenpeace.org/international/Templates/Planet3/Handlers/RssHandler.ashx?type=videos&epslanguage=en-GB",
     ], 
@@ -15,19 +15,19 @@ var config = {
     banned: [],
     truncateDiscriptions:250,
     stipHTMLtags: true,
-    maxTagLength: 25,
+    maxTagLength: 20,
     feedOptions: {
-        title: 'title',
-        description: 'description',
-        feed_url: 'http://example.com/rss.xml',
-        site_url: 'http://example.com',
-        image_url: 'http://example.com/icon.png',
-        docs: 'http://example.com/rss/docs.html',
-        managingEditor: 'who?',
-        webMaster: 'Who',
-        copyright: 'What?',
+        title: 'OMN',
+        description: 'The Open Media Network',
+        feed_url: 'http://omn.openworlds.info:8080/rss',
+        site_url: 'http://omn.openworlds.info:8080/',
+        image_url: 'http://omn.openworlds.info:8080/omn.png',
+        docs: 'https://github.com/tomspost/OMN',
+        managingEditor: 'Hamish',
+        webMaster: 'Tom',
+        copyright: 'RSS items copyright is from multiple sources',
         language: 'en',
-        categories: ['Category 1', 'Category 2', 'Category 3'],
+        categories: ['OMN', 'News', 'Video','Audio'],
         pubDate: 'May 20, 2012 04:00:00 GMT',
         ttl: '60',
     }

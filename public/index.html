@@ -113,7 +113,7 @@
     }
     
     .link {
-        font-size: 80%;
+        font-size: 90%;
         background-color: #fff;
         font-style: italic;
         text-align: right;
@@ -143,8 +143,20 @@
         width: 100%;
     }
     
-    .is-checked {
+    .nochecked {
+        background-color: #888;
+    }
+    
+    .orchecked {
         background-color: #faa;
+    }
+    
+    .andchecked {
+        background-color: #afa;
+    }
+    
+    .notchecked {
+        background-color: #aaf;
     }
 </style>
 <script>
@@ -162,7 +174,9 @@
             var items = [];
             var tags = [];
 
-
+            data.rssTags.sort(function(a, b) {
+                return (a.tag > b.tag);
+            })
             var s13 = Math.round(data.rssTags.length * 0.18);
             var s23 = Math.round(data.rssTags.length * 0.49);
             //var s33 = Math.round(data.rssTags.length * 0.28);
@@ -171,7 +185,7 @@
                     tags.push("");
                 }
                 if (val.c > 2) {
-                    tags.push("<button class='itag'>" + val.tag + "</button> ");
+                    tags.push("<button class='nochecked'>" + val.tag + "</button> ");
                 }
             });
 
@@ -256,65 +270,70 @@
 
 
 
-            $('.itag').on('click', function() {
+            $('button').on('click', function() {
 
 
                 var filterValue = $(this).html();
 
                 // no-checked > or-checked > and-checked > not-checked
-                
-                
-//                $('.toggle').click(function () {
-//  $('div').each(function(){
-//    var classes = ['class1','class2','class3'];
-//    this.className = classes[($.inArray(this.className, classes)+1)%classes.length];
-//  });
-//});
-                
-                
-
-                // remove or checked and add and
-                if ($(this).hasClass('no-checked')) {
-                    $(this).removeClass("no-checked");
-                    // add the string to filter  
-                    $.each(OMN.orTags, function(key, val) {
-                        if (val == filterValue) {
-                            OMN.orTags.splice(key, 1);
-                        }
-                    });
-                }
-                
- 
-                
-                
-                else {
-                    // remove the string from filter
-                    $(this).addClass("is-checked");
-                    OMN.orTags.push(filterValue);
-                }
 
 
 
 
+                var classes = ['nochecked','orchecked', 'andchecked','notchecked']; //'andchecked','orchecked',
+                this.className = classes[($.inArray(this.className, classes) + 1) % classes.length];
+                OMN.orTags = [];
+                $(".orchecked").each(function() {
+                    OMN.orTags.push($(this).text())
+                });
+                OMN.andTags = [];
+                $(".andchecked").each(function() {
+                    OMN.andTags.push($(this).text())
+                });
+                OMN.notTags = [];
+                $(".notchecked").each(function() {
+                    OMN.notTags.push($(this).text())
+                });
 
-                //alert(JSON.stringify(OMN.orTags));
+
+
+
+                //console.log(OMN);
 
                 //alert("hi");
-                if (OMN.orTags.length == 0) {
-                    $grid.isotope({
-                        filter: "*"
-                    });
-                    filterValue = "";
-                }
-                else {
+                if ((OMN.orTags.length != 0) || (OMN.notTags.length != 0) || (OMN.andTags.length != 0)) {
                     var filter = "";
+
+                    $.each(OMN.notTags, function(key, val) {
+                        filter = filter + ":not([sortme*='" + val + "'])"
+                    });
+
                     $.each(OMN.orTags, function(key, val) {
                         filter = filter + "[sortme*='" + val + "']"
                     });
                     filter = filter.split("][").join("],[");
+
+                    $.each(OMN.andTags, function(key, val) {
+                        filter = filter + "[sortme*='" + val + "']"
+                    });
+
+
+
+
+                    //filter = filter.split("][").join("],[");
+
+                    console.log(filter);
                     $grid.isotope({
                         filter: filter,
                     });
+
+                }
+                else {
+                    $grid.isotope({
+                        filter: "*"
+                    });
+                    filterValue = "";
+
                 }
                 oldFilter = filterValue;
 
