@@ -280,7 +280,8 @@
 
 
 
-                var classes = ['nochecked','orchecked', 'andchecked','notchecked']; //'andchecked','orchecked',
+                //var classes = ['nochecked','orchecked', 'andchecked','notchecked']; //'andchecked','orchecked',
+                var classes = ['nochecked','orchecked']
                 this.className = classes[($.inArray(this.className, classes) + 1) % classes.length];
                 OMN.orTags = [];
                 $(".orchecked").each(function() {
