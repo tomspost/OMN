@@ -144,19 +144,23 @@
     }
     
     .nochecked {
-        background-color: #888;
+        background-color: #666;
+        color: #fff;
     }
     
     .orchecked {
-        background-color: #faa;
+        background-color: #33a;
+        color: #fff;
     }
     
     .andchecked {
-        background-color: #afa;
+        background-color: #3a3;
+        color: #fff;
     }
     
     .notchecked {
-        background-color: #aaf;
+        background-color: #a33;
+        color: #fff;
     }
 </style>
 <script>
@@ -280,8 +284,8 @@
 
 
 
-                //var classes = ['nochecked','orchecked', 'andchecked','notchecked']; //'andchecked','orchecked',
-                var classes = ['nochecked','orchecked']
+                var classes = ['nochecked','notchecked','andchecked','orchecked']; 
+                //var classes = ['nochecked','orchecked']
                 this.className = classes[($.inArray(this.className, classes) + 1) % classes.length];
                 OMN.orTags = [];
                 $(".orchecked").each(function() {
@@ -342,7 +346,7 @@
                 OMN.url = "/rss?tagsOr=" + OMN.orTags.join("/") + "&tagsAnd=" + "";
                 document.getElementById("url").href = OMN.url;
 
-                $grid.isotope('shuffle');
+                //$grid.isotope('shuffle');
             });
 
 
