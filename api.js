@@ -71,7 +71,7 @@ function api(rssItems, rssServers, tags) {
     var jsonItems = [];
 
     rssItems.forEach(function(item, i) {
-      //if(item.enclosures) {console.log(JSON.stringify(item.enclosures));}
+      if(item.enclosures) {console.log(JSON.stringify(item.enclosures));}
       jsonItems.push({
         title: item.title,
         description: item.description,
