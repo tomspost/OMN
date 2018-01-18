@@ -91,6 +91,31 @@ function api(rssItems, rssServers, tags) {
     });
   });
 
+  app.get('/200', function(req, res) {
+
+    var jsonItems = [];
+
+    rssItems.forEach(function(item, i) {
+      if(item.enclosures) {console.log(JSON.stringify(item.enclosures));}
+      if (i > (rssItems/length - 200)) {jsonItems.push({
+        title: item.title,
+        description: item.description,
+        link: item.link,
+        categories: item.categories,
+        guid: item.guid,
+        image: item.image.url,
+        enclosures:item.enclosures
+      })}
+      
+    });
+
+    res.json({
+      rssServers: rssServers,
+      rssItems: jsonItems,
+      rssTags: tags,
+      baseURL: config.OMNURL,
+    });
+  });
 
 
   app.listen(process.env.PORT || 8080, function() {

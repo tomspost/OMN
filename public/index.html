@@ -343,7 +343,7 @@
                 oldFilter = filterValue;
 
                 //build and set the RSS URL
-                OMN.url = "/rss?tagsOr=" + OMN.orTags.join("/") + "&tagsAnd=" + "";
+                OMN.url = "/rss?tagsOr=" + OMN.orTags.join("/") + "&tagsAnd=" + OMN.andTags.join("/") +"&tagsNot="+OMN.notTags.join("/") +"";
                 document.getElementById("url").href = OMN.url;
 
                 //$grid.isotope('shuffle');
